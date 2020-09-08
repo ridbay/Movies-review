@@ -5,8 +5,15 @@ const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// MOCK ARRAY OF PROJECTS
+let reviews = [
+    { title: "Great Review", movieTitle: "Batman II" },
+    { title: "Awesome Movie", movieTitle: "Titanic" }
+  ]
+
 app.get("/", (req, res) => {
-  res.render('home', {msg: "Handlebars are cool"});
+  res.render('reviews-index', {reviews: reviews});
 });
 
 const PORT = 4000;

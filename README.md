@@ -4,11 +4,16 @@ web app using Node.js, Express.js, MongoDB and Handlebars
 Click [Here](https://compassionate-johnson-7bbdca.netlify.com/) to view live App hosted on Netlify
 
 
-## Contributing
+## user stories
 
-Read our [contributing guide](/Contributing.md) to learn about our development process, how to propose bugfixes and improvements.
+Users can view all reviews (index)
+Users can create a review (new/create)
+Users can view one review (show)
+Users can delete a review (destroy)
+Users can edit a review (edit/update)
+Users can comment on reviews (comments#create)
+Users can delete comments (comments#destroy)
 
-Notice that contributions go far beyond pull requests and commits.
 
 
 ## License
