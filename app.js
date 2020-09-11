@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
-const Handlebars = require('handlebars')
-const expressHandlebars = require('express-handlebars');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
- 
+const Handlebars = require("handlebars");
+const expressHandlebars = require("express-handlebars");
+const {
+  allowInsecurePrototypeAccess,
+} = require("@handlebars/allow-prototype-access");
+const methodOverride = require("method-override");
 const app = express();
+// override with POST having ?_method=DELETE or ?_method=PUT
+app.use(methodOverride("_method"));
 mongoose.connect("mongodb://localhost/movie-reviews", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,10 +22,13 @@ const Review = mongoose.model("Review", {
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.engine('handlebars', expressHandlebars({
-    handlebars: allowInsecurePrototypeAccess(Handlebars)
-}));
-app.set('view engine', 'handlebars');
+app.engine(
+  "handlebars",
+  expressHandlebars({
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+  })
+);
+app.set("view engine", "handlebars");
 
 // MOCK ARRAY OF PROJECTS
 // let reviews = [
@@ -41,7 +48,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/reviews/new", (req, res) => {
-  res.render("reviews-new", {});
+  res.render("reviews-new", {title: "New Review"});
 });
 
 app.post("/reviews", (req, res) => {
@@ -54,14 +61,32 @@ app.post("/reviews", (req, res) => {
     });
 });
 
-app.get("/reviews/:id", (req,res)=>{
-    Review.findById(req.params.id)
-    .then((review)=>{
-        res.render('reviews-show', {review: review})
-    }).catch(err=>{
-        console.log(err.message)
+app.get("/reviews/:id", (req, res) => {
+  Review.findById(req.params.id)
+    .then((review) => {
+      res.render("reviews-show", { review: review });
     })
-})
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+app.get("/reviews/:id/edit", (req, res) => {
+  Review.findById(req.params.id).then((review) => {
+    res.render("reviews-edit", { review: review, title: "Edit Review" });
+  });
+});
+
+app.put("/reviews/:id", (req, res) => {
+  Review.findByIdAndUpdate(req.params.id, req.body)
+    .then((review) => {
+      res.redirect(`/reviews/${review._id}`);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
