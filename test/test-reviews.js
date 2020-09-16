@@ -47,16 +47,17 @@ describe("Reviews", () => {
 
   //Dump truck to delete all sample reviews created after each test above
 
-  describe("Reviews", () => {
-    after(() => {
-      Review.deleteMany({ title: "This is a good review" }).exec(
-        (err, reviews) => {
-          console.log(reviews);
-          reviews.remove();
-        }
-      );
-    });
-  });
+  // describe("Reviews", () => {
+  //   after(() => {
+  //     Review.deleteMany({ title: "This is a good review"}).exec(
+  //       (err, reviews) => {
+  //         console.log(reviews);
+  //         reviews.remove();
+  //       }
+  //     );
+  //   });
+  // });
+ 
   //SHOW A SINGLE REVIEW
   it("should show a single review on /reviews/<id> GET", (done) => {
     let review = new Review(sampleReview);
@@ -129,5 +130,18 @@ describe("Reviews", () => {
         done()
       })
     })
+  })
+});
+
+
+
+  //Dump truck to delete all sample reviews created after each test above
+after(() => {
+  Review.deleteMany({ title: "This is a good review"}, (err,result)=>{
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+    }
   })
 });
