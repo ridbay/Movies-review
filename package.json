@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "supervisor app.js"
+    "dev": "supervisor app.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,10 @@
     "handlebars": "^4.7.6",
     "method-override": "^3.0.0",
     "mongoose": "^5.10.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.1.3"
   }
 }
