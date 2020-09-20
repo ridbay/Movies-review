@@ -1,7 +1,7 @@
 web app using Node.js, Express.js, MongoDB and Handlebars
 
 
-Click [Here](https://compassionate-johnson-7bbdca.netlify.com/) to view live App hosted on Netlify
+Click [Here](https://glow-trail-cookie.glitch.me/) to view live App hosted on Netlify
 
 
 ## user stories
