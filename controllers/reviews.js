@@ -1,4 +1,6 @@
 const Review = require("../models/review");
+const Comment = require("../models/comment");
+const moment = require("moment")
 
 module.exports = function (app) {
   app.get("/", (req, res) => {
@@ -28,7 +30,14 @@ module.exports = function (app) {
   app.get("/reviews/:id", (req, res) => {
     Review.findById(req.params.id)
       .then((review) => {
-        res.render("reviews-show", { review: review });
+        let createdAt = review.createdAt;
+        createdAt = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        review.createdAtFormatted = createdAt;
+
+        Comment.find({ reviewId: req.params.id }).then((comments) => {
+          comments.reverse();
+          res.render("reviews-show", { review: review, comments: comments });
+        });
       })
       .catch((err) => {
         console.log(err.message);
@@ -61,5 +70,4 @@ module.exports = function (app) {
         console.log(err.message);
       });
   });
-  
 };

@@ -6,17 +6,21 @@ Click [Here](https://compassionate-johnson-7bbdca.netlify.com/) to view live App
 
 ## user stories
 
-Users can view all reviews (index)
+GET "/" => Users can view all reviews (index)
 
-Users can create a review (new/create)
+GET "/reviews/new" => Users can see form (new/create)
 
-Users can view one review (show)
+POST "/reviews" => Users can create a review (new/create)
 
-Users can delete a review (destroy)
+GET "/reviews/:id" =>Users can view one review (show)
 
-Users can edit a review (edit/update)
+GET "/reviews/:id/edit" =>Users can edit one review (show)
 
-Users can comment on reviews (comments#create)
+DELETE "/reviews/:id" => Users can delete a review (destroy)
+
+PUT/PATCH "/reviews/:id" => Users can edit a review (edit/update)
+
+POST "/reviews/comments" => Users can CREATE comment on reviews (comments#create)
 
 Users can delete comments (comments#destroy)
 
